@@ -95,10 +95,7 @@ public abstract class CelestialBody {
         @Override
         public boolean equals(Object obj) {
             Key key = (Key) obj;
-            if (this.name.equals(key.getName())) {
-                return (this.bodyType == key.getBodyType());
-            }
-            return false;
+            return this.name.equals(key.getName()) ? this.bodyType == key.getBodyType() : false;
 
         }
 
