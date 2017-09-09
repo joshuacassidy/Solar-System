@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -9,34 +11,50 @@ public class Main {
     private static Set<CelestialBody> moons = new HashSet<>();
 
     public static void main(String[] args) throws IOException {
-
-        String[] planetNames = {"Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"};
-        int[] planetOrbitalPeriods = {88,225,365,687,4332,10759,30660,165,248};
-
-        String[] moonNames = {"Moon","Deimos","Phobos","Io","Europa","Ganymede","Callisto"};
-        double[] moonOrbitalPeriods = {27,1.3,0.3,1.8,3.5,7.1,16.7};
+        //No longer needed to run program
+//        String[] planetNames = {"Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune","Pluto"};
+//        int[] planetOrbitalPeriods = {88,225,365,687,4332,10759,30660,165,248};
+//
+//        String[] moonNames = {"Moon","Deimos","Phobos","Io","Europa","Ganymede","Callisto"};
+//        double[] moonOrbitalPeriods = {27,1.3,0.3,1.8,3.5,7.1,16.7};
         CelestialBody temp;
         CelestialBody tempMoon;
-        
-        try(FileWriter planetsFile = new FileWriter("src/Planets.txt");
-            FileWriter TransactionsFile = new FileWriter("src/Moon.txt")) {
-                for(int i = 0; i< planetNames.length; i++) {
-                    planetsFile.write(String.format("%s, %s\n",planetNames[i],planetOrbitalPeriods[i]));
+
+        //For writing data to the file
+//        try(FileWriter planetsFile = new FileWriter("src/Planets.txt");
+//            FileWriter TransactionsFile = new FileWriter("src/Moons.txt")) {
+//                for(int i = 0; i< planetNames.length; i++) {
+//                    planetsFile.write(String.format("%s, %s\n",planetNames[i],planetOrbitalPeriods[i]));
+//                }
+//                for(int i = 0; i< moonNames.length; i++) {
+//                TransactionsFile.write(String.format("%s, %s\n",moonNames[i], moonOrbitalPeriods[i]));
+//                }
+//        }
+
+        try(BufferedReader planetsFile = new BufferedReader(new FileReader("src/Planets.txt"));
+            BufferedReader moonsFile = new BufferedReader(new FileReader("src/Moons.txt"))) {
+
+
+            String planetData = planetsFile.readLine();
+            String moonsData = moonsFile.readLine();
+
+            while (planetData != null || moonsData != null ) {
+                if(planetData != null){
+                    String[] data = planetData.split(",");
+                    temp = new Planet(data[0],Double.parseDouble(data[1]));
+                    addValues(temp,planets);
+                    planetData = planetsFile.readLine();
+                } else{
+                    String[] data = moonsData.split(",");
+                    tempMoon = new Moon(data[0],Double.parseDouble(data[1]));
+                    addValues(tempMoon,moons);
+                    moonsData = moonsFile.readLine();
                 }
-                for(int i = 0; i< moonNames.length; i++) {
-                TransactionsFile.write(String.format("%s, %s\n",moonNames[i], moonOrbitalPeriods[i]));
-                }
+
+            }
         }
 
-        for(int i = 0; i < planetNames.length; i++){
-            temp = new Planet(planetNames[i],planetOrbitalPeriods[i]);
-            addValues(temp,planets);
-        }
 
-        for(int i = 0; i < moonNames.length; i++){
-            tempMoon = new Moon(moonNames[i],moonOrbitalPeriods[i]);
-            addValues(tempMoon,moons);
-        }
 
         printCelestialBody(moons,"Moons in this solar system: ");
         printCelestialBody(planets,"\n\nPlanets in this solar system: ");
