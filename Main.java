@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
@@ -19,36 +16,33 @@ public class Main {
         CelestialBody temp;
         CelestialBody tempMoon;
 
-        for(int i = 0; i < moonNames.length; i++){
+        for(int i = 0; i < planetNames.length; i++){
             temp = new Planet(planetNames[i],planetOrbitalPeriods[i]);
-            solarSystem.put(temp.getKey(),temp);
-            planets.add(temp);
+            addValues(temp,planets);
 
         }
 
-        for(int j = 0; j < moonNames.length; j++){
-            tempMoon = new Moon(moonNames[j],moonOrbitalPeriods[j]);
-            solarSystem.put(tempMoon.getKey(),tempMoon);
-            moons.add(tempMoon);
+        for(int i = 0; i < moonNames.length; i++){
+            tempMoon = new Moon(moonNames[i],moonOrbitalPeriods[i]);
+            addValues(tempMoon,moons);
         }
 
+        printCelestialBody(moons,"Moons in this solar system: ");
+        printCelestialBody(planets,"\n\nPlanets in this solar system: ");
+        printCelestialBody( solarSystem.values(),"\n\nMoons and planets in the solar system: ");
 
-        System.out.println("All moons");
-        for(CelestialBody moon: moons){
-            System.out.println("\t" + moon);
+
+    }
+
+    public static void addValues(CelestialBody temp,  Set<CelestialBody> bodyType){
+        solarSystem.put(temp.getKey(),temp);
+        bodyType.add(temp);
+    }
+
+    public static void printCelestialBody(Collection celestialBodys, String Message){
+        System.out.println(Message);
+        for(Object celestialBody: celestialBodys){
+            System.out.println("\t" + celestialBody);
         }
-
-        System.out.println("Planets");
-        for (CelestialBody planet: planets){
-            System.out.println("\t" + planet);
-        }
-
-        System.out.println("Contents of the solar system: ");
-        for (CelestialBody s: solarSystem.values()){
-            System.out.println("\t" + s);
-        }
-
-
-
     }
 }

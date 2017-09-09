@@ -5,6 +5,6 @@ public class Planet extends CelestialBody {
 
     @Override
     public boolean addSatellite(CelestialBody moon) {
-        return moon.getKey().getBodyType() == BodyTypes.MOON ? super.addSatellite(moon) : false;
+        return moon.getKey().getBodyType() == BodyTypes.MOON && super.addSatellite(moon);
     }
 }

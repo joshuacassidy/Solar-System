@@ -37,10 +37,6 @@ public abstract class CelestialBody {
     }
 
 
-    public Set<CelestialBody> getSatellites() {
-        return new HashSet<>(this.satellites);
-    }
-
     @Override
     public final boolean equals(Object obj) {
         if (this == obj) {
@@ -60,13 +56,10 @@ public abstract class CelestialBody {
         return this.key.hashCode();
     }
 
-    public static Key makeKey(String name, BodyTypes bodyType){
-        return new Key(name,bodyType);
-    }
 
     @Override
     public String toString() {
-        return this.key.name + ": " + this.key.bodyType + ", " + this.orbitalPeriod;
+        return String.format("Name: %s \n\tBodyType: %s\n\tOrbital Period: %s\n",this.key.name, this.key.bodyType, this.orbitalPeriod);
     }
 
     public static final class Key {
@@ -95,7 +88,7 @@ public abstract class CelestialBody {
         @Override
         public boolean equals(Object obj) {
             Key key = (Key) obj;
-            return this.name.equals(key.getName()) ? this.bodyType == key.getBodyType() : false;
+            return this.name.equals(key.getName()) && this.bodyType == key.getBodyType();
 
         }
 
