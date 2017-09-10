@@ -1,0 +1,7 @@
+Moon, 27.0
+Deimos, 1.3
+Phobos, 0.3
+Io, 1.8
+Europa, 3.5
+Ganymede, 7.1
+Callisto, 16.7
