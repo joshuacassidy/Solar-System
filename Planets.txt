@@ -1,9 +1,0 @@
-Mercury, 88
-Venus, 225
-Earth, 365
-Mars, 687
-Jupiter, 4332
-Saturn, 10759
-Uranus, 30660
-Neptune, 165
-Pluto, 248
