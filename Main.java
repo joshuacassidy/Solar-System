@@ -51,47 +51,17 @@ public class Main {
 //            }
 //        }
 
-//        try (ObjectOutputStream planetsFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("Planets.dat"))); ObjectOutputStream moonsFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("Moons.dat")))) {
-//
-//            for(int i = 0; i < planetNames.length; i++) {
-//                    planetsFile.writeObject(String.format("%s, %s\n",planetNames[i],planetOrbitalPeriods[i]));
-//                }
-//                for(int i = 0; i< moonNames.length; i++) {
-//                    moonsFile.writeObject(String.format("%s, %s\n",moonNames[i], moonOrbitalPeriods[i]));
-//                }
-//        }
+        try (ObjectOutputStream planetsFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("Planets.dat"))); ObjectOutputStream moonsFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("Moons.dat")))) {
 
-        try(ObjectInputStream planetsFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream("src/Planets.dat"))); ObjectInputStream moonsFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream("src/Moons.dat")))) {
-            boolean planetEof = false;
-
-            while(!planetEof) {
-                try {
-                    Object planetData = planetsFile.readObject();
-                    String[] data = planetData.toString().split(",");
-                    temp = new Planet(data[0], Double.parseDouble(data[1]));
-                    addValues(temp, planets);
-                } catch (EOFException e) {
-                    planetEof = true;
-
+            for(int i = 0; i < planetNames.length; i++) {
+                    planetsFile.writeObject(String.format("%s, %s\n",planetNames[i],planetOrbitalPeriods[i]));
                 }
-            }
-
-
-                boolean moonsEof = false;
-                while(!moonsEof) {
-                    try {
-                        Object moonData = moonsFile.readObject();
-                        String[] data = moonData.toString().split(",");
-                        temp = new Moon(data[0], Double.parseDouble(data[1]));
-                        addValues(temp, moons);
-
-
-                    } catch (EOFException e) {
-                        moonsEof = true;
-
+                for(int i = 0; i< moonNames.length; i++) {
+                    moonsFile.writeObject(String.format("%s, %s\n",moonNames[i], moonOrbitalPeriods[i]));
                 }
-            }
         }
+
+
 
 
         printCelestialBody(moons,"Moons in this solar system: ");
