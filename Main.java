@@ -11,6 +11,7 @@ public class Main {
         CelestialBody temp;
         CelestialBody tempMoon;
 
+        System.out.print("\033[H\033[2J");
         try(ObjectInputStream planetsFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream("src/Planets.dat"))); ObjectInputStream moonsFile = new ObjectInputStream(new BufferedInputStream(new FileInputStream("src/Moons.dat")))) {
             boolean planetEof = false;
             boolean moonsEof = false;
@@ -53,7 +54,7 @@ public class Main {
     public static void printCelestialBody(Collection celestialBodys, String Message){
         System.out.println(Message);
         for(Object celestialBody: celestialBodys){
-            System.out.println("\t" + celestialBody);
+            System.out.printf("\t%s\n",celestialBody);
         }
     }
 }
